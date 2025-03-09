@@ -44,6 +44,15 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
+/* Custom function to focus and warp mouse */
+static void focusandwarp(const Arg *arg) {
+    focusstack(arg);  /* Switch focus to next/prev window */
+    if (selmon->sel) {  /* If a window is selected */
+        XWarpPointer(dpy, None, selmon->sel->win, 0, 0, 0, 0,
+                     selmon->sel->w / 2, selmon->sel->h / 2);
+    }
+}
+
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
@@ -77,10 +86,10 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY|ShiftMask,             XK_h,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ShiftMask,             XK_l,      focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_h,      setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_h,      focusandwarp,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_l,      focusandwarp,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
