@@ -22,7 +22,7 @@ static const char col_cyan[]        = "#393552";
 static const char *colors[][3]      = {
     /*               fg         bg         border   */
     [SchemeNorm] = { "#e0def4", "#26233a", "#1f1d2e" }, /* Normal (unfocused) */
-    [SchemeSel]  = { "#26233a", "#e0def4", "#eb6f92" }, /* Selected (focused) */
+    [SchemeSel]  = { "#26233a", "#907aa9", "#f2e9e1" }, /* Selected (focused) */
 };
 
 /* tagging */
